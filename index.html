@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elara's AI Adventure: Crafting Tomorrow's Classroom</title>
+    <style>
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            cursor: pointer; 
+        }
+
+        .book-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        #lang-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            z-index: 10;
+        }
+
+        /* Different layout styles */
+        .page-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .illustrated-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .text-only-page {
+            text-align: left;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        .image-left-layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        .image-right-layout {
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 20px;
+            align-items: flex-start;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        .image-left-layout .page-image,
+        .image-right-layout .page-image {
+            flex: 0 0 40%;
+            max-width: 300px;
+        }
+
+        .image-left-layout .page-text,
+        .image-right-layout .page-text {
+            flex: 1;
+            padding: 1rem;
+        }
+
+        .inline-image-page {
+            text-align: left;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        .inline-image-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .page-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .inline-image {
+            max-width: 200px;
+            flex-shrink: 0;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .page-text {
+            text-align: left;
+            line-height: 1.8;
+            font-size: 1.1em;
+            white-space: pre-wrap;
+        }
+
+        .inline-text {
+            flex: 1;
+            line-height: 1.8;
+        }
+
+        h1, h2, p {
+            margin: 0.5rem 0;
+        }
+        
+        .book-link {
+            color: #007bff;
+            text-decoration: underline;
+            font-weight: bold;
+            display: block;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        #title, #author {
+            color: #222;
+        }
+        
+        #page-number {
+            font-weight: bold;
+            color: #666;
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="book-container">
+        <button id="lang-toggle">Chinese</button>
+        <h1 id="title"></h1>
+        <h2 id="author"></h2>
+        <div id="page-content" class="page-content"></div>
+        <p id="page-number"></p>
+    </div>
+
+    <script>
+        const ALL_BOOK_DATA = {
+  "en": {
+    "1": "Ms. Elara, a teacher with a heart full of questions, gazed out her classroom window. \"How can I make learning even more amazing?\" she wondered, dreaming of new ways to spark curiosity in her students.",
+    "2": "Then, a bright idea! The World AI Conference was happening, a place where big minds shared big ideas about the future. \"Perhaps,\" she thought, \"the answers lie there!\"The conference hall buzzed like a beehive! Screens glowed, robots whirred, and people chatted excitedly. Ms. Elara felt a little overwhelmed by all the newness. Suddenly, a sign caught her eye: \"AI in Education: Shaping Future Minds.\" Her heart fluttered with hope. This was exactly what she was looking for! URL:Placehold for Game:https://quantumcompai.netlify.app At the \"AI in Education\" booth, she met Dr. Kael, a friendly expert with kind eyes and a warm smile. \"Welcome!\" he greeted her. \"How can AI transform learning for you?\"",
+    "3": "Dr. Kael explained, \"Imagine AI helping every student learn at their very own speed, on their very own path. No one left behind, no one held back!\" URL:Test Placeholder:https://quantumcompai.netlify.app",
+    "4": "Ms. Elara closed her eyes and pictured a young student, Leo, happily solving math problems that were just right for him, not too hard, not too easy. His face was bright with understanding. URL:Game Placeholder:https://quantumcompai.netlify.app",
+    "5": "\"And what about busy work?\" Dr. Kael continued. \"AI can be a super-efficient teaching assistant, helping with things like grading papers, so teachers have more time for what truly matters.\"URL:Next Book Quantum Computing AI:https://quantumcompai.netlify.app",
+    "title": "Elara's AI Adventure: Crafting Tomorrow's Classroom",
+    "author": "By AI",
+    "_formats": {
+      "1": "illustrated",
+      "2": "text_only",
+      "3": "image_left",
+      "4": "image_right",
+      "5": "image_inline"
+    }
+  },
+  "zh": {
+    "1": "埃拉拉老师，一位心中充满疑问的教师，凝视着她的教室窗外。她想知道：“怎样才能让学习变得更加精彩呢？”她梦想着用新的方法来激发学生的好奇心。",
+    "2": "突然，一个绝妙的主意出现了！世界AI大会正在举行，这是一个汇聚了智慧的大脑，分享关于未来宏伟想法的地方。“也许，”她心想，“答案就在那里！” 会议大厅像蜂巢一样嗡嗡作响！屏幕发着光，机器人嗡嗡地转着，人们兴奋地聊着天。面对所有这些新事物，埃拉拉老师感到有点不知所措。 突然，一个标语映入她的眼帘：“AI在教育中的应用：塑造未来心智”。她的心充满了希望。这正是她一直在寻找的！ 在“AI在教育中的应用”展位，她遇到了卡尔博士，一位友善的专家，他有着和蔼的眼神和温暖的笑容。“欢迎！”他向她打招呼。“AI能如何为你改变学习呢？” URL:Placehold for Game:https://quantumcompai.netlify.app",
+    "3": "卡尔博士解释说：“想象一下AI帮助每个学生以他们自己的速度，走他们自己的路学习。没有人掉队，没有人被拖慢！” URL:Test Placeholder:https://quantumcompai.netlify.app",
+    "4": "埃拉拉老师闭上眼睛，想象着一个名叫里奥的年轻学生，正开心地解决着对他来说恰到好处的数学题，不太难，也不太容易。他的脸上洋溢着理解的光芒。URL:Game Placeholder:https://quantumcompai.netlify.app",
+    "5": "“那么那些繁琐的工作呢？”卡尔博士继续说道。“AI可以成为一个超级高效的助教，帮忙批改试卷之类的事务，这样老师们就有更多的时间去做真正重要的事情了。”URL:Quantum Computing AI:https://quantumcompai.netlify.app",
+    "title": "埃拉拉的AI奇遇:打造明日课堂",
+    "author": "作者:By AI",
+    "_formats": {
+      "1": "illustrated",
+      "2": "text_only",
+      "3": "image_left",
+      "4": "image_right",
+      "5": "image_inline"
+    }
+  }
+};
+        
+        const synth = window.speechSynthesis;
+        let currentLang = 'en';
+        let currentPage = -1;
+
+        const VOICE_MAP = {
+            'en': 'en-US',
+            'zh': 'zh-CN' 
+        };
+        
+        function speakContent(text) {
+            if (!synth) {
+                console.warn("Speech synthesis not supported.");
+                return;
+            }
+            
+            if (synth.speaking) {
+                synth.cancel();
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            const voiceCode = VOICE_MAP[currentLang];
+            const voices = synth.getVoices();
+            const selectedVoice = voices.find(voice => voice.lang === voiceCode) || null;
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            } else {
+                utterance.lang = voiceCode;
+            }
+
+            synth.speak(utterance);
+        }
+        
+        function stopSpeaking() {
+            if (synth && synth.speaking) {
+                synth.cancel();
+            }
+        }
+
+        function getBookData() {
+            return ALL_BOOK_DATA[currentLang];
+        }
+
+        // Process content with links AND inline images
+        function processContentWithMedia(content) {
+            const urlRegex = /URL:([^:]+):([^\s]+)/g;
+            const imgRegex = /\[IMG:([^\]]+)\]/g;
+            
+            let processedContent = content;
+            let speechText = content;
+            
+            // Process inline images first
+            processedContent = processedContent.replace(imgRegex, '<img src="images/$1" class="inline-image" alt="Illustration">');
+            
+            // Process URLs
+            if (content.includes('URL:')) {
+                let htmlParts = [];
+                let speechParts = [];
+                let lastIndex = 0;
+                let match;
+                
+                while ((match = urlRegex.exec(content)) !== null) {
+                    const [fullMatch, linkText, url] = match;
+                    
+                    // Add text before the link
+                    const textBefore = content.substring(lastIndex, match.index).trim();
+                    if (textBefore) {
+                        htmlParts.push(textBefore);
+                        speechParts.push(textBefore);
+                    }
+                    
+                    // Add the link
+                    let finalUrl = url;
+                    if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://')) {
+                        finalUrl = 'https://' + finalUrl;
+                    }
+                    
+                    htmlParts.push(`<a href="${finalUrl}" class="book-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">${linkText}</a>`);
+                    speechParts.push(currentLang === 'en' ? `Check out the link: ${linkText}` : `请查看链接: ${linkText}`);
+                    
+                    lastIndex = match.index + fullMatch.length;
+                }
+                
+                // Add remaining text
+                const textAfter = content.substring(lastIndex).trim();
+                if (textAfter) {
+                    htmlParts.push(textAfter);
+                    speechParts.push(textAfter);
+                }
+                
+                return {
+                    html: htmlParts.join(''),
+                    speechText: speechParts.join('. ')
+                };
+            }
+            
+            return {
+                html: processedContent,
+                speechText: speechText
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentElement = document.getElementById('page-content');
+            const titleElement = document.getElementById('title');
+            const authorElement = document.getElementById('author');
+            const pageNumberElement = document.getElementById('page-number');
+            const langToggleButton = document.getElementById('lang-toggle');
+
+            function toggleLanguage() {
+                currentLang = currentLang === 'en' ? 'zh' : 'en';
+                langToggleButton.textContent = currentLang === 'zh' ? '英文' : 'Chinese';
+                updateUI();
+            }
+            
+            langToggleButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                toggleLanguage();
+            });
+            
+            langToggleButton.textContent = 'Chinese';
+
+            function updateUI() {
+                const bookData = getBookData();
+                const bookKeys = Object.keys(bookData);
+                const totalTextPages = bookKeys.filter(key => !isNaN(parseInt(key))).length;
+                const formats = bookData._formats || {};
+                
+                console.log('Current state:', {
+                    currentPage: currentPage,
+                    currentLang: currentLang,
+                    totalPages: totalTextPages,
+                    formats: formats
+                });
+                
+                if (currentPage > totalTextPages) {
+                    currentPage = totalTextPages;
+                }
+
+                const isCoverPage = currentPage === -1;
+                const isEndPage = currentPage === totalTextPages;
+
+                let imagePath, content, pageText, pageFormat;
+
+                if (isCoverPage) {
+                    content = bookData.cover_text || '';
+                    imagePath = `images/${bookData.cover || 'cover.png'}`;
+                    pageText = '';
+                    pageFormat = 'illustrated';
+                } else if (isEndPage) {
+                    content = bookData.end || '';
+                    imagePath = `images/end.png`;
+                    pageText = currentLang === 'en' ? 'End Page' : '结束页';
+                    pageFormat = 'illustrated';
+                } else {
+                    const pageKey = (currentPage + 1).toString();
+                    content = bookData[pageKey] || '';
+                    imagePath = `images/${pageKey}.png`;
+                    pageText = `${currentLang === 'en' ? 'Page' : '页'} ${pageKey} ${currentLang === 'en' ? 'of' : '共'} ${totalTextPages}`;
+                    pageFormat = formats[pageKey] || 'illustrated';
+                }
+                
+                console.log(`Rendering page ${currentPage + 1} with format: ${pageFormat}`);
+                
+                titleElement.style.display = isCoverPage ? 'block' : 'none';
+                authorElement.style.display = isCoverPage ? 'block' : 'none';
+
+                titleElement.textContent = bookData.title;
+                authorElement.textContent = bookData.author;
+                pageNumberElement.textContent = pageText;
+                
+                // Render different page layouts
+                let pageHTML = '';
+                const processedContent = processContentWithMedia(content);
+                
+                switch(pageFormat) {
+                    case 'text_only':
+                        pageHTML = `
+                            <div class="text-only-page">
+                                <div class="page-text">${processedContent.html}</div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'image_left':
+                        pageHTML = `
+                            <div class="image-left-layout">
+                                <img src="${imagePath}" class="page-image" alt="Page illustration">
+                                <div class="page-text">${processedContent.html}</div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'image_right':
+                        pageHTML = `
+                            <div class="image-right-layout">
+                                <img src="${imagePath}" class="page-image" alt="Page illustration">
+                                <div class="page-text">${processedContent.html}</div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'image_inline':
+                        pageHTML = `
+                            <div class="inline-image-page">
+                                <div class="inline-image-container">
+                                    <img src="${imagePath}" class="inline-image" alt="Page illustration">
+                                    <div class="inline-text">${processedContent.html}</div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    default: // illustrated (original format)
+                        pageHTML = `
+                            <div class="illustrated-page">
+                                <img src="${imagePath}" class="page-image" alt="Page illustration">
+                                <div class="page-text">${processedContent.html}</div>
+                            </div>
+                        `;
+                }
+                
+                contentElement.innerHTML = pageHTML;
+                stopSpeaking();
+                speakContent(processedContent.speechText);
+            }
+
+            function changePage(direction) {
+                const bookData = getBookData();
+                const totalTextPages = Object.keys(bookData).filter(key => !isNaN(parseInt(key))).length;
+                let newPage = currentPage + direction;
+
+                console.log(`Changing page from ${currentPage} to ${newPage}, direction: ${direction}`);
+
+                if (direction === 1) { 
+                    if (newPage > totalTextPages) {
+                        newPage = -1; 
+                    }
+                } else if (direction === -1) { 
+                    if (newPage < -1) {
+                        return;
+                    }
+                }
+                
+                if (newPage >= -1 && newPage <= totalTextPages) {
+                    currentPage = newPage;
+                    updateUI();
+                }
+            }
+
+            document.body.addEventListener('click', (event) => {
+                if (event.target.id === 'lang-toggle' || event.target.tagName === 'A' || event.target.tagName === 'IMG') return;
+
+                const isRightSide = event.clientX > window.innerWidth / 2;
+                if (isRightSide) {
+                    changePage(1);
+                } else {
+                    if (currentPage > -1) {
+                        changePage(-1);
+                    }
+                }
+            });
+
+            document.body.addEventListener('keyup', (event) => {
+                const isNextKey = event.key === 'Enter' || event.key === 'ArrowRight';
+                const isPreviousKey = event.key === 'ArrowLeft';
+
+                if (isNextKey) {
+                    changePage(1);
+                } else if (isPreviousKey) {
+                    if (currentPage > -1) {
+                        changePage(-1);
+                    }
+                }
+            });
+            
+            updateUI();
+        });
+    </script>
+</body>
+</html>
