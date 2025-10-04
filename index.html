@@ -5,42 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elara's AI Adventure: Crafting Tomorrow's Classroom</title>
-    
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
         body {
             font-family: 'Arial', 'Microsoft YaHei', sans-serif;
             background-color: #f0f0f0;
             color: #333;
             margin: 0;
-            /* Using --vh for consistent full viewport height */
-            min-height: 100vh;
-            min-height: calc(var(--vh, 1vh) * 100); 
-            cursor: pointer; 
-            padding: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            cursor: pointer; 
         }
 
         .book-container {
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            padding: 1rem;
-            width: 100%;
-            max-width: 800px;
-            /* MOBILE FIRST: Flexible height that fills screen */
-            min-height: 80vh; 
-            min-height: calc(var(--vh, 1vh) * 80);
+            padding: 2rem;
+            width: 90%;
+            max-width: 700px;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            text-align: center;
+            align-items: center;
             position: relative;
         }
         
@@ -58,109 +46,24 @@
             z-index: 10;
         }
 
-        /* Mobile-first content area - ENFORCING HEIGHT HERE */
-        .page-content-area {
-            width: 100%;
-            flex: 1; 
-            min-height: 100%; /* NEW: Crucial addition to force height distribution */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0.5rem;
-        }
-
-        /* Base page content */
-        .page-content {
-            width: 100%;
-            flex: 1; 
-            min-height: 100%; /* NEW: Ensures this wrapper stretches */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Mobile-first layouts - NOW USING FLEX: 1 AND MIN-HEIGHT: 100% */
-        .illustrated-page {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            flex: 1; 
-            min-height: 100%; /* NEW: Guarantees height */
-            gap: 1rem;
-            padding: 0.5rem;
-        }
-
-        .text-only-page {
-            text-align: left;
-            width: 100%;
-            flex: 1; 
-            min-height: 100%; /* NEW: Guarantees height */
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            overflow-y: auto;
-        }
-
-        /* MOBILE: Stack images and text vertically */
-        .image-left-layout,
-        .image-right-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            align-items: center;
-            width: 100%;
-            flex: 1; 
-            min-height: 100%; /* NEW: Guarantees height */
-            padding: 1rem;
-            overflow-y: auto;
-        }
-
-        .inline-image-page {
-            text-align: left;
-            width: 100%;
-            flex: 1; 
-            min-height: 100%; /* NEW: Guarantees height */
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            overflow-y: auto;
-        }
-
-        /* Images - responsive sizing */
-        .page-image {
+        #book-image {
             width: 100%;
             max-width: 400px;
             height: auto;
             border: 1px solid #ddd;
             border-radius: 5px;
-            margin: 0.5rem 0;
+            margin-bottom: 1.5rem;
         }
 
-        .inline-image {
-            width: 100%;
-            max-width: 300px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin: 1rem auto;
-            display: block;
-        }
-
-        .page-text {
+        #book-content {
             text-align: left;
-            line-height: 1.6;
-            font-size: 1em;
+            margin-top: 1rem;
+            line-height: 1.8;
+            font-size: 1.1em;
+            overflow-y: auto;
+            max-height: 50vh;
+            padding-right: 15px;
             white-space: pre-wrap;
-            width: 100%;
-            flex: 1; 
-            display: flex; 
-            flex-direction: column;
-            justify-content: center; 
         }
 
         h1, h2, p {
@@ -184,90 +87,6 @@
             font-weight: bold;
             color: #666;
             margin-top: 1rem;
-            flex-shrink: 0;
-        }
-
-        /* Desktop styles - only apply on larger screens */
-        @media (min-width: 768px) {
-            body {
-                padding: 20px;
-            }
-
-            .book-container {
-                padding: 2rem;
-                min-height: 600px; 
-            }
-
-            .page-content-area {
-                padding: 1rem;
-            }
-
-            .illustrated-page {
-                gap: 2rem;
-                padding: 1rem;
-            }
-
-            .text-only-page {
-                padding: 2rem;
-            }
-
-            /* DESKTOP: Side-by-side layouts */
-            .image-left-layout {
-                flex-direction: row;
-                gap: 2rem;
-                padding: 2rem;
-                overflow-y: hidden;
-            }
-
-            .image-right-layout {
-                flex-direction: row-reverse;
-                gap: 2rem;
-                padding: 2rem;
-                overflow-y: hidden;
-            }
-
-            .image-left-layout .page-image,
-            .image-right-layout .page-image {
-                flex: 0 0 45%;
-                max-width: 350px;
-            }
-
-            .image-left-layout .page-text,
-            .image-right-layout .page-text {
-                flex: 1;
-                padding: 1rem;
-                overflow-y: auto;
-            }
-
-            .inline-image-page {
-                padding: 2rem;
-            }
-
-            .page-text {
-                line-height: 1.8;
-                font-size: 1.1em;
-            }
-
-            .page-image {
-                max-width: 450px;
-            }
-
-            .inline-image {
-                max-width: 380px;
-                margin: 2rem auto;
-            }
-        }
-
-        /* Large desktop */
-        @media (min-width: 1200px) {
-            .book-container {
-                min-height: 700px;
-            }
-        }
-
-        /* Special cover styling */
-        .cover-page .page-image {
-            max-width: 500px;
         }
     </style>
 </head>
@@ -276,56 +95,31 @@
         <button id="lang-toggle">Chinese</button>
         <h1 id="title"></h1>
         <h2 id="author"></h2>
-        <div class="page-content-area">
-            <div id="page-content" class="page-content"></div>
-        </div>
+        <img id="book-image" src="" alt="Book Image">
+        <div id="book-content"></div>
         <p id="page-number"></p>
     </div>
 
     <script>
-        // Function to calculate and set the corrected viewport height
-        function setVhProperty() {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }
-
-        // Call the function initially and on window resize
-        setVhProperty();
-        window.addEventListener('resize', setVhProperty);
-        
         const ALL_BOOK_DATA = {
   "en": {
     "1": "Ms. Elara, a teacher with a heart full of questions, gazed out her classroom window. \"How can I make learning even more amazing?\" she wondered, dreaming of new ways to spark curiosity in her students.",
     "2": "Then, a bright idea! The World AI Conference was happening, a place where big minds shared big ideas about the future. \"Perhaps,\" she thought, \"the answers lie there!\"The conference hall buzzed like a beehive! Screens glowed, robots whirred, and people chatted excitedly. Ms. Elara felt a little overwhelmed by all the newness. Suddenly, a sign caught her eye: \"AI in Education: Shaping Future Minds.\" Her heart fluttered with hope. This was exactly what she was looking for! URL:Quantum Entanglement Game:https://claude.ai/public/artifacts/0b27d123-469a-4ea4-a37b-f9aa3101ac94 At the \"AI in Education\" booth, she met Dr. Kael, a friendly expert with kind eyes and a warm smile. \"Welcome!\" he greeted her. \"How can AI transform learning for you?\"",
-    "3": "Dr. Kael explained, \"Imagine AI helping every student learn at their very own speed, on their very own path. No one left behind, no one held back!\" URL:Test Placeholder:https://quantumcompai.netlify.app",
-    "4": "Ms. Elara closed her eyes and pictured a young student, Leo, happily solving math problems that were just right for him, not too hard, not too easy. His face was bright with understanding. URL:Video Placeholder:https://quantumcompai.netlify.app",
-    "5": "\"And what about busy work?\" Dr. Kael continued. \"AI can be a super-efficient teaching assistant, helping with things like grading papers, so teachers have more time for what truly matters.\" [IMAGE-HERE]Ms. Elara imagined herself spending less time with red pens and more time helping students with their big ideas, reading stories, and exploring new projects. What a dream! \"But AI isn't just for tasks,\" Dr. Kael added, \"it's also a fantastic partner for creativity! Think of AI helping students compose music, write stories, or even paint digital masterpieces.\"",
+    "3": "Dr. Kael explained, \"Imagine AI helping every student learn at their very own speed, on their very own path. No one left behind, no one held back!\" URL:Test Placeholder TBD:https://quantumcompai.netlify.app",
+    "4": "Ms. Elara closed her eyes and pictured a young student, Leo, happily solving math problems that were just right for him, not too hard, not too easy. His face was bright with understanding. URL:Video Placeholder TBD:https://quantumcompai.netlify.app",
+    "5": "\"And what about busy work?\" Dr. Kael continued. \"AI can be a super-efficient teaching assistant, helping with things like grading papers, so teachers have more time for what truly matters.\" Ms. Elara imagined herself spending less time with red pens and more time helping students with their big ideas, reading stories, and exploring new projects. What a dream! \"But AI isn't just for tasks,\" Dr. Kael added, \"it's also a fantastic partner for creativity! Think of AI helping students compose music, write stories, or even paint digital masterpieces.\"",
     "title": "Elara's AI Adventure: Crafting Tomorrow's Classroom",
     "author": "By AI",
-    "URL": "Quantum Comuting AI:https://quantumcompai.netlify.app",
-    "_formats": {
-      "1": "illustrated",
-      "2": "text_only",
-      "3": "image_left",
-      "4": "image_right",
-      "5": "image_inline"
-    }
+    "URL": "Quantum Comuting AI:https://quantumcompai.netlify.app"
   },
   "zh": {
     "1": "埃拉拉老师，一位心中充满疑问的教师，凝视着她的教室窗外。她想知道：“怎样才能让学习变得更加精彩呢？”她梦想着用新的方法来激发学生的好奇心。",
     "2": "突然，一个绝妙的主意出现了！世界AI大会正在举行，这是一个汇聚了智慧的大脑，分享关于未来宏伟想法的地方。“也许，”她心想，“答案就在那里！” 会议大厅像蜂巢一样嗡嗡作响！屏幕发着光，机器人嗡嗡地转着，人们兴奋地聊着天。面对所有这些新事物，埃拉拉老师感到有点不知所措。 突然，一个标语映入她的眼帘：“AI在教育中的应用：塑造未来心智”。她的心充满了希望。这正是她一直在寻找的！ 在“AI在教育中的应用”展位，她遇到了卡尔博士，一位友善的专家，他有着和蔼的眼神和温暖的笑容。“欢迎！”他向她打招呼。“AI能如何为你改变学习呢？” URL:Quantum Entanglement Game:https://claude.ai/public/artifacts/0b27d123-469a-4ea4-a37b-f9aa3101ac94",
     "3": "卡尔博士解释说：“想象一下AI帮助每个学生以他们自己的速度，走他们自己的路学习。没有人掉队，没有人被拖慢！” URL:Test Placeholder:https://quantumcompai.netlify.app",
     "4": "埃拉拉老师闭上眼睛，想象着一个名叫里奥的年轻学生，正开心地解决着对他来说恰到好处的数学题，不太难，也不太容易。他的脸上洋溢着理解的光芒。URL:Video Placeholder:https://quantumcompai.netlify.app",
-    "5": "“那么那些繁琐的工作呢？”卡尔博士继续说道。“AI可以成为一个超级高效的助教，帮忙批改试卷之类的事务，这样老师们就有更多的时间去做真正重要的事情了。[IMAGE-HERE]埃拉拉老师想象着自己花在红笔上的时间少了，而有更多的时间来帮助学生实现他们的大创意、阅读故事和探索新项目。多么美好的梦想啊！ ”URL:Quantum Computing AI:https://quantumcompai.netlify.app",
+    "5": "“那么那些繁琐的工作呢？”卡尔博士继续说道。“AI可以成为一个超级高效的助教，帮忙批改试卷之类的事务，这样老师们就有更多的时间去做真正重要的事情了。埃拉拉老师想象着自己花在红笔上的时间少了，而有更多的时间来帮助学生实现他们的大创意、阅读故事和探索新项目。多么美好的梦想啊！ ”URL:Quantum Computing AI:https://quantumcompai.netlify.app",
     "title": "埃拉拉的AI奇遇:打造明日课堂",
-    "author": "作者:By AI",
-    "_formats": {
-      "1": "illustrated",
-      "2": "text_only",
-      "3": "image_left",
-      "4": "image_right",
-      "5": "image_inline"
-    }
+    "author": "作者:By AI"
   }
 };
         
@@ -372,89 +166,79 @@
             return ALL_BOOK_DATA[currentLang];
         }
 
-        // Function to replace [IMAGE-HERE] marker with actual image
-        function replaceImageMarker(content, imageHtml) {
-            console.log('Looking for [IMAGE-HERE] marker in content...');
-            
-            if (content.includes('[IMAGE-HERE]')) {
-                console.log('Found [IMAGE-HERE] marker - replacing with image');
-                return content.replace('[IMAGE-HERE]', imageHtml);
-            } else {
-                console.log('No [IMAGE-HERE] marker found - placing image at end');
-                return content + '\n\n' + imageHtml;
-            }
-        }
-
-        // Process content with smart inline image placement
-        function processContentWithMedia(content, pageFormat) {
+        // NEW FUNCTION: Extract and process URLs from content
+        function processContentWithLinks(content) {
             const urlRegex = /URL:([^:]+):([^\s]+)/g;
-            const imgRegex = /\[IMG:([^\]]+)\]/g;
-            
             let processedContent = content;
-            let speechText = content;
+            let links = [];
             
-            // Process inline images first
-            processedContent = processedContent.replace(imgRegex, '<img src="images/$1" class="inline-image" alt="Illustration">');
+            // Find all URL patterns in the content
+            let match;
+            while ((match = urlRegex.exec(content)) !== null) {
+                const [fullMatch, linkText, url] = match;
+                links.push({ linkText: linkText.trim(), url: url.trim(), index: match.index });
+            }
             
-            // Process URLs
-            if (content.includes('URL:')) {
-                let htmlParts = [];
-                let speechParts = [];
-                let lastIndex = 0;
-                let match;
-                
-                while ((match = urlRegex.exec(content)) !== null) {
-                    const [fullMatch, linkText, url] = match;
-                    
-                    // Add text before the link
-                    const textBefore = content.substring(lastIndex, match.index).trim();
-                    if (textBefore) {
-                        htmlParts.push(textBefore);
-                        speechParts.push(textBefore);
-                    }
-                    
-                    // Add the link
-                    let finalUrl = url;
-                    if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://')) {
-                        finalUrl = 'https://' + finalUrl;
-                    }
-                    
-                    htmlParts.push(`<a href="${finalUrl}" class="book-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">${linkText}</a>`);
-                    speechParts.push(currentLang === 'en' ? `Check out the link: ${linkText}` : `请查看链接: ${linkText}`);
-                    
-                    lastIndex = match.index + fullMatch.length;
+            // If no links found, return original content
+            if (links.length === 0) {
+                return { html: content, speechText: content };
+            }
+            
+            // Replace URL patterns with HTML links
+            let lastIndex = 0;
+            let htmlParts = [];
+            let speechParts = [];
+            
+            links.forEach(link => {
+                // Add text before the link
+                const textBefore = content.substring(lastIndex, link.index).trim();
+                if (textBefore) {
+                    htmlParts.push(textBefore);
+                    speechParts.push(textBefore);
                 }
                 
-                // Add remaining text
-                const textAfter = content.substring(lastIndex).trim();
-                if (textAfter) {
-                    htmlParts.push(textAfter);
-                    speechParts.push(textAfter);
+                // Add the link
+                let finalUrl = link.url;
+                if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://')) {
+                    finalUrl = 'https://' + finalUrl;
                 }
                 
-                return {
-                    html: htmlParts.join(''),
-                    speechText: speechParts.join('. ')
-                };
+                htmlParts.push(`<a href="${finalUrl}" class="book-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">${link.linkText}</a>`);
+                speechParts.push(currentLang === 'en' ? `Check out the link: ${link.linkText}` : `请查看链接: ${link.linkText}`);
+                
+                lastIndex = link.index + link.linkText.length + link.url.length + 5; // +5 for "URL::"
+            });
+            
+            // Add any remaining text after the last link
+            const textAfter = content.substring(lastIndex).trim();
+            if (textAfter) {
+                htmlParts.push(textAfter);
+                speechParts.push(textAfter);
             }
             
             return {
-                html: processedContent,
-                speechText: speechText
+                html: htmlParts.join('\n\n'),
+                speechText: speechParts.join('. ')
             };
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const contentElement = document.getElementById('page-content');
+            const imageElement = document.getElementById('book-image');
+            const contentElement = document.getElementById('book-content');
             const titleElement = document.getElementById('title');
             const authorElement = document.getElementById('author');
             const pageNumberElement = document.getElementById('page-number');
             const langToggleButton = document.getElementById('lang-toggle');
-            const bookContainer = document.querySelector('.book-container');
 
             function toggleLanguage() {
                 currentLang = currentLang === 'en' ? 'zh' : 'en';
-                langToggleButton.textContent = currentLang === 'zh' ? '英文' : 'Chinese';
+                
+                if (currentLang === 'zh') {
+                    langToggleButton.textContent = '英文';
+                } else {
+                    langToggleButton.textContent = 'Chinese';
+                }
+                
                 updateUI();
             }
             
@@ -469,7 +253,6 @@
                 const bookData = getBookData();
                 const bookKeys = Object.keys(bookData);
                 const totalTextPages = bookKeys.filter(key => !isNaN(parseInt(key))).length;
-                const formats = bookData._formats || {};
                 
                 if (currentPage > totalTextPages) {
                     currentPage = totalTextPages;
@@ -478,95 +261,55 @@
                 const isCoverPage = currentPage === -1;
                 const isEndPage = currentPage === totalTextPages;
 
-                let imagePath, content, pageText, pageFormat;
+                let imagePath, content, title, author, pageText;
 
-                // Add special class for cover page
-                bookContainer.className = 'book-container';
                 if (isCoverPage) {
-                    bookContainer.classList.add('cover-page');
-                }
-                
-                if (isCoverPage) {
-                    content = bookData.cover_text || '';
+                    title = bookData.title || 'Untitled';
+                    author = bookData.author || '';
                     imagePath = `images/${bookData.cover || 'cover.png'}`;
+                    content = bookData.cover_text || '';
                     pageText = '';
-                    pageFormat = 'illustrated';
                 } else if (isEndPage) {
-                    content = bookData.end || '';
+                    title = bookData.title;
+                    author = bookData.author;
                     imagePath = `images/end.png`;
+                    content = bookData.end || '';
                     pageText = currentLang === 'en' ? 'End Page' : '结束页';
-                    pageFormat = 'illustrated';
                 } else {
                     const pageKey = (currentPage + 1).toString();
-                    content = bookData[pageKey] || '';
+                    title = '';
+                    author = '';
                     imagePath = `images/${pageKey}.png`;
+                    content = bookData[pageKey] || '';
                     pageText = `${currentLang === 'en' ? 'Page' : '页'} ${pageKey} ${currentLang === 'en' ? 'of' : '共'} ${totalTextPages}`;
-                    pageFormat = formats[pageKey] || 'illustrated';
                 }
-                
-                console.log(`Rendering page ${currentPage + 1} with format: ${pageFormat}`);
                 
                 titleElement.style.display = isCoverPage ? 'block' : 'none';
                 authorElement.style.display = isCoverPage ? 'block' : 'none';
 
                 titleElement.textContent = bookData.title;
                 authorElement.textContent = bookData.author;
+                imageElement.src = imagePath;
                 pageNumberElement.textContent = pageText;
                 
-                // Render different page layouts
-                let pageHTML = '';
-                const processedContent = processContentWithMedia(content, pageFormat);
-                
-                switch(pageFormat) {
-                    case 'text_only':
-                        pageHTML = `
-                            <div class="text-only-page">
-                                <div class="page-text">${processedContent.html}</div>
-                            </div>
-                        `;
-                        break;
-                        
-                    case 'image_left':
-                        pageHTML = `
-                            <div class="image-left-layout">
-                                <img src="${imagePath}" class="page-image" alt="Page illustration">
-                                <div class="page-text">${processedContent.html}</div>
-                            </div>
-                        `;
-                        break;
-                        
-                    case 'image_right':
-                        pageHTML = `
-                            <div class="image-right-layout">
-                                <img src="${imagePath}" class="page-image" alt="Page illustration">
-                                <div class="page-text">${processedContent.html}</div>
-                            </div>
-                        `;
-                        break;
-                        
-                    case 'image_inline':
-                        console.log('Processing IMAGE_INLINE layout with [IMAGE-HERE] marker');
-                        const imageHtml = `<img src="${imagePath}" class="inline-image" alt="Page illustration">`;
-                        const contentWithImage = replaceImageMarker(processedContent.html, imageHtml);
-                        pageHTML = `
-                            <div class="inline-image-page">
-                                <div class="page-text">${contentWithImage}</div>
-                            </div>
-                        `;
-                        break;
-                        
-                    default: // illustrated (original format)
-                        pageHTML = `
-                            <div class="illustrated-page">
-                                <img src="${imagePath}" class="page-image" alt="Page illustration">
-                                <div class="page-text">${processedContent.html}</div>
-                            </div>
-                        `;
+                // UPDATED: Use the new link processing function
+                let speechText;
+                if (content && content.includes('URL:')) {
+                    const processed = processContentWithLinks(content);
+                    contentElement.innerHTML = processed.html;
+                    speechText = processed.speechText;
+                } else {
+                    // Regular text content
+                    contentElement.textContent = content;
+                    if (isCoverPage) {
+                        speechText = `${bookData.title}. By ${bookData.author}. ${content}`;
+                    } else {
+                        speechText = content;
+                    }
                 }
                 
-                contentElement.innerHTML = pageHTML;
                 stopSpeaking();
-                speakContent(processedContent.speechText);
+                speakContent(speechText);
             }
 
             function changePage(direction) {
@@ -591,7 +334,7 @@
             }
 
             document.body.addEventListener('click', (event) => {
-                if (event.target.id === 'lang-toggle' || event.target.tagName === 'A' || event.target.tagName === 'IMG') return;
+                if (event.target.id === 'lang-toggle' || event.target.tagName === 'A') return;
 
                 const isRightSide = event.clientX > window.innerWidth / 2;
                 if (isRightSide) {
@@ -604,8 +347,8 @@
             });
 
             document.body.addEventListener('keyup', (event) => {
-                const isNextKey = event.key === 'Enter' || event.key === 'ArrowRight';
-                const isPreviousKey = event.key === 'ArrowLeft';
+                const isNextKey = event.key === 'Enter' || event.keyCode === 13 || event.key === 'ArrowRight' || event.keyCode === 39;
+                const isPreviousKey = event.key === 'ArrowLeft' || event.keyCode === 37;
 
                 if (isNextKey) {
                     changePage(1);
